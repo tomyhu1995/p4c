@@ -214,25 +214,16 @@ extern value_set<D> {
 // Architecture.
 // M should be a struct of structs
 // H should be a struct of headers or stacks
-
-parser Parser<H, M>(packet_in b,
-                    out H parsedHdr,
-                    inout M meta,
-inout standard_metadata_t standard_metadata);
+parser Parser<H, M>(packet_in b, out H parsedHdr, inout M meta, inout standard_metadata_t standard_metadata);
 
 /* The only legal statements in the implementation of the
 VerifyChecksum control are: block statements, calls to the
 verify_checksum method, and return statements. */
-control VerifyChecksum<H, M>(inout H hdr,
-                             inout M meta);
+control VerifyChecksum<H, M>(inout H hdr, inout M meta);
 @pipeline
-control Ingress<H, M>(inout H hdr,
-                      inout M meta,
-                      inout standard_metadata_t standard_metadata);
+control Ingress<H, M>(inout H hdr, inout M meta, inout standard_metadata_t standard_metadata);
 @pipeline
-control Egress<H, M>(inout H hdr,
-                     inout M meta,
-                     inout standard_metadata_t standard_metadata);
+control Egress<H, M>(inout H hdr, inout M meta, inout standard_metadata_t standard_metadata);
 
 /* The only legal statements in the implementation of the
 ComputeChecksum control are: block statements, calls to the
@@ -242,12 +233,6 @@ control ComputeChecksum<H, M>(inout H hdr,
 @deparser
 control Deparser<H>(packet_out b, in H hdr);
 
-package V1Switch<H, M>(Parser<H, M> p,
-                       VerifyChecksum<H, M> vr,
-                       Ingress<H, M> ig,
-                       Egress<H, M> eg,
-                       ComputeChecksum<H, M> ck,
-                       Deparser<H> dep
-                       );
+package V1Switch<H, M>(Parser<H, M> p, VerifyChecksum<H, M> vr, Ingress<H, M> ig, Egress<H, M> eg, ComputeChecksum<H, M> ck, Deparser<H> dep );
 
 #endif  /* _V1_MODEL_P4_ */
